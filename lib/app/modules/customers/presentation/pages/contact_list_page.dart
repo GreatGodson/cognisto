@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cognisto/app/modules/customers/domain/service/customers_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../data/models/customers_model.dart' show UsersResponse;
 import '../widgets/components/cached_network_image.dart';
@@ -85,14 +86,17 @@ class _ContactListPageState extends State<ContactListPage> {
                       itemBuilder: (context, index) {
                         final currentUser = data?.users[index];
                         return ListTile(
-                          title: Text(
-                            "${currentUser?.firstName} ${currentUser?.lastName}",
-                          ),
-                          subtitle: Text(currentUser?.email ?? "No Email"),
-                          trailing: CachedImageContainer(
-                            imageUrl: currentUser!.image,
-                          ),
-                        );
+                              title: Text(
+                                "${currentUser?.firstName} ${currentUser?.lastName}",
+                              ),
+                              subtitle: Text(currentUser?.email ?? "No Email"),
+                              trailing: CachedImageContainer(
+                                imageUrl: currentUser!.image,
+                              ),
+                            )
+                            .animate(delay: 100.ms * index)
+                            .fadeIn(duration: 300.ms)
+                            .slideY(begin: 0.2, duration: 300.ms);
                       },
                     ),
                   );

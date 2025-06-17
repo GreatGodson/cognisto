@@ -9,6 +9,10 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: CustomerServiceInterface)
 class CustomerService implements CustomerServiceInterface {
+  final int _limit = 10;
+  int _currentPage = 0;
+  final List<User> _allFetchedUsers = [];
+
   @override
   Future<UsersResponse> getAllCustomers(int nextPage) async {
     final response = await HTTP.get(
